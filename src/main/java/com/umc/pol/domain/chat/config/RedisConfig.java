@@ -28,6 +28,16 @@ public class RedisConfig {
     /**
      * redis에 발행(publish)된 메시지 처리를 위한 리스너 설정
      */
+//    @Bean
+//    public RedisMessageListenerContainer redisMessageListener(RedisConnectionFactory connectionFactory,
+//                                                              MessageListenerAdapter listenerAdapter,
+//                                                              ChannelTopic channelTopic) {
+//        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+//        container.setConnectionFactory(connectionFactory);
+//        container.addMessageListener(listenerAdapter, channelTopic);
+//        return container;
+//    }
+
     @Bean
     public RedisMessageListenerContainer redisMessageListener(RedisConnectionFactory connectionFactory,
                                                               MessageListenerAdapter listenerAdapter,
@@ -38,7 +48,10 @@ public class RedisConfig {
         return container;
     }
 
+
+
     /**
+     * redis의 pub/sub 기능 이용하기 위한 MessageListener
      * 실제 메시지를 처리하는 subscriber 설정 추가
      */
     @Bean

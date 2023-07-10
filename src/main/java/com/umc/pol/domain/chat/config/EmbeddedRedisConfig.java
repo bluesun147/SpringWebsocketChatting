@@ -9,16 +9,19 @@ import javax.annotation.PreDestroy;
 
 
 @Profile("local") // 로컬 환경에서만 embedded redis 실행되도록
+//@Profile("dev") // 로컬 환경에서만 embedded redis 실행되도록
 @Configuration
 public class EmbeddedRedisConfig {
     @Value("${spring.redis.port}")
     private int redisPort;
 
     private RedisServer redisServer;
-
     @PostConstruct
-    public void setRedisServer() {
-        redisServer = new RedisServer(redisPort);
+    public void start() {
+        redisServer = RedisServer.builder()
+                .port(redisPort)
+                .setting("maxmemory 128M")
+                .build();
         redisServer.start();
     }
 
